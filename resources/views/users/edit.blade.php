@@ -1,0 +1,37 @@
+@extends('layouts.app', ['pageTitle' => 'Edit Profile'])
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <h1 class="text-center">Edit Profile</h1>
+            <form role="form" method="POST" action="{{ route('users.update', ['userUuid' => $user->uuid]) }}">
+                @csrf
+                @method('PUT')
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ (old('name')) ? old('name') : $user->name }}" placeholder="Name" autofocus>
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ (old('email')) ? old('email') : $user->email }}" placeholder="Email" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">You will need to verify a new email.</div>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
